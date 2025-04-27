@@ -1,24 +1,59 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import SignupForm  from './components/SignupForm';
+import Verify2FA   from './components/Verify2FA';
+import LoginForm   from './components/LoginForm';
+import axios       from 'axios';
 
 function App() {
-    const [data, setData] = useState(null);
+  const [step, setStep]         = useState('signup');
+  const [userId, setUserId]     = useState(null);
+  const [testResult, setTestResult] = useState(null);
 
-    useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/test`)
-            .then((res) => res.json())
-            .then((json) => setData(json))
-            .catch((err) => console.error("Gabim:", err));
-    }, []);
+  useEffect(() => {
+    if (step === 'home') {
+      axios.get('/test')
+           .then(res => setTestResult(res.data.message))
+           .catch(console.error);
+    }
+  }, [step]);
 
-    return (
-        <div className="p-8">
-            <h1 className="text-2xl font-bold mb-4">ePharm Frontend 🚀</h1>
-            <p>Rezultati nga backend:</p>
-            <pre className="bg-gray-100 p-4 rounded">
-        {data ? JSON.stringify(data, null, 2) : "Duke pritur përgjigje..."}
-      </pre>
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {step === 'signup' && (
+        <SignupForm
+          onCodeSent={id => {
+            setUserId(id);
+            setStep('verify');
+          }}
+          onSwitchToLogin={() => setStep('login')}
+        />
+      )}
+
+      {step === 'verify' && (
+        <Verify2FA
+          userId={userId}
+          onVerified={() => setStep('login')}
+        />
+      )}
+
+      {step === 'login' && (
+        <LoginForm
+          onLoggedIn={() => setStep('home')}
+          onSwitchToSignup={() => setStep('signup')}
+        />
+      )}
+
+      {step === 'home' && (
+        <div className="max-w-md mx-auto mt-12 p-6 bg-white rounded-lg shadow-md">
+          <h2 className="text-2xl mb-4">✅ You’re logged in!</h2>
+          <p>Backend says:</p>
+          <pre className="bg-gray-100 p-4 rounded">
+            {testResult || 'Loading...'}
+          </pre>
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
 export default App;
