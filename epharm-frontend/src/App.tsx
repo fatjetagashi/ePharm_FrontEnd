@@ -13,6 +13,7 @@ import DoctorsPage from "./pages/PatientView/DoctorsPage";
 import PatientsPage from "./pages/PatientView/PatientsPage";
 import MedicinesPage from "./pages/PatientView/MedicinesPage";
 import NotificationsPage from "./pages/PatientView/NotificationsPage";
+import PharmacyList from './pages/PharmacyList';
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/pharmacy-test" element={<PharmacyList />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
