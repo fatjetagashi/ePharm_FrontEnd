@@ -1,7 +1,6 @@
-// vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path  from 'path'
 
 export default defineConfig({
   plugins: [react()],
@@ -9,14 +8,11 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main:     'index.html',
-        admin:    'admin.html',
-        doctor:   'doctor.html',
-        pharmacy: 'pharmacy.html',
+        main:     path.resolve(__dirname, 'index.html'),
+        admin:    path.resolve(__dirname, 'admin.html'),
+        doctor:   path.resolve(__dirname, 'doctor.html'),
+        pharmacy: path.resolve(__dirname, 'pharmacy.html'),
       }
     }
   }
-});
-
-
-
+})
