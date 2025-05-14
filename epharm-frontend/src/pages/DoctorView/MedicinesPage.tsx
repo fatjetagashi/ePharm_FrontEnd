@@ -1,6 +1,6 @@
 
 import React from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/DoctorComponents/DashboardLayout';
 import MedicineCard from '@/components/Medicine/MedicineCard';
 import { Search, Filter, Plus } from 'lucide-react';
 import { Input } from '@/components/ui/input';

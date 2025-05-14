@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import DashboardLayout from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/AdminComponents/DashboardLayout';
 import { Search, MapPin, Filter, Plus, Check, X } from 'lucide-react';
-import { Input } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/input';
-import { Button } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/button';
-import { Pharmacy } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/types';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Pharmacy } from '@/types';
 import { 
   Dialog, 
   DialogContent, 
@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogFooter,
   DialogDescription
-} from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/dialog';
+} from '@/components/ui/dialog';
 import {
   Card,
   CardContent,
@@ -20,26 +20,26 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/card";
+} from "@/components/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/select";
+} from "@/components/ui/select";
 import {
   Badge
-} from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/badge';
+} from '@/components/ui/badge';
 import { toast } from 'sonner';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/tabs";
-import { Label } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/label';
-import { Textarea } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/textarea';
+} from "@/components/ui/tabs";
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 // Extended Pharmacy type with UI-specific properties
 interface ExtendedPharmacy extends Pharmacy {
