@@ -90,6 +90,7 @@ export default function AddMedicineDialog({ open, onOpenChange, onSave }: AddMed
       created_at: new Date().toISOString(),
       manufacturer: values.manufacturer,
       category: values.category,
+        pharmacyId: '1', // Vlera e duhur sipas sistemit tënd
     };
 
     onSave(newMedicine);
