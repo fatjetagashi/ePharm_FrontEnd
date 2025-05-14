@@ -1,11 +1,11 @@
 
 import React from 'react';
-import DashboardLayout from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/Layout/DashboardLayout';
-import PrescriptionForm from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/Prescription/PrescriptionForm';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/tabs';
-import { Card, CardContent, CardHeader, CardTitle } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/card';
+import DashboardLayout from '@/components/Layout/AdminComponents/DashboardLayout';
+import PrescriptionForm from '@/components/Prescription/PrescriptionForm';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, CheckCircle, Clock, X } from 'lucide-react';
-import { Button } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/button';
+import { Button } from '@/components/ui/button';
 
 const PrescriptionsPage = () => {
   // Mock prescription data

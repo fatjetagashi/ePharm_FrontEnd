@@ -5,10 +5,18 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      // ⬇️ makes "@/foo" point at "<project-root>/src/foo"
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
+  resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
+  build: {
+    rollupOptions: {
+      input: {
+        main:     'index.html',
+        admin:    'admin.html',
+        doctor:   'doctor.html',
+        pharmacy: 'pharmacy.html',
+      }
+    }
+  }
 });
+
+
+
