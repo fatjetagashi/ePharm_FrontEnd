@@ -1,17 +1,17 @@
 
 import React from 'react';
-import DashboardLayout from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/Layout/DashboardLayout';
-import MedicineCard from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/Medicine/MedicineCard';
+import DashboardLayout from '@/components/Layout/AdminComponents/DashboardLayout';
+import MedicineCard from '@/components/Medicine/MedicineCard';
 import { Search, Filter, Plus } from 'lucide-react';
-import { Input } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/input';
-import { Button } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { 
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/select";
+} from "@/components/ui/select";
 
 const MedicinesPage = () => {
   // Mock medicine data
