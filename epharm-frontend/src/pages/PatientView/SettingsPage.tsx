@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/PatientComponents/DashboardLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
