@@ -25,7 +25,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { toast } from 'sonner';
-import {addDoctor, AddDoctorPayload} from '@/api/Doctor/doctor.ts'; // ✅ import your API function
+import {addDoctor, AddDoctorPayload} from '@/api/doctor'; // ✅ import your API function
 
 // 🧠 Zod validation schema
 const formSchema = z.object({
