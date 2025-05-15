@@ -1,14 +1,18 @@
-// vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path  from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      // ⬇️ makes "@/foo" point at "<project-root>/src/foo"
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
-});
+  resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
+  build: {
+    rollupOptions: {
+      input: {
+        main:     path.resolve(__dirname, 'index.html'),
+        admin:    path.resolve(__dirname, 'admin.html'),
+        doctor:   path.resolve(__dirname, 'doctor.html'),
+        pharmacy: path.resolve(__dirname, 'pharmacy.html'),
+      }
+    }
+  }
+})

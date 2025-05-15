@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { getCurrentUserRole } from "./lib/auth"; // Simulated role getter
+import { getCurrentUserRole } from "./lib/auth";
 
 // AdminView pages
 import AdminIndex from "./pages/AdminView/Index";
@@ -45,63 +45,65 @@ const queryClient = new QueryClient();
 const role = getCurrentUserRole(); // "admin", "patient", or "doctor"
 
 const App = () => (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            {/* Admin View */}
-            {role === "admin" && (
-                <>
-                  <Route path="/" element={<AdminIndex />} />
-                  <Route path="/prescriptions" element={<AdminPrescriptionsPage />} />
-                  <Route path="/pharmacies" element={<AdminPharmaciesPage />} />
-                  <Route path="/doctors" element={<AdminDoctorsPage />} />
-                  <Route path="/patients" element={<AdminPatientsPage />} />
-                  <Route path="/medicines" element={<AdminMedicinesPage />} />
-                  <Route path="/notifications" element={<AdminNotificationsPage />} />
-                  <Route path="/settings" element={<AdminSettingsPage />} />
-                  <Route path="/reports" element={<AdminReportsPage />} />
-                  <Route path="/profile" element={<AdminProfilePage />} />
-                  <Route path="*" element={<AdminNotFound />} />
-                </>
-            )}
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
 
-            {/* Patient View */}
-            {role === "patient" && (
-                <>
-                  <Route path="/" element={<PatientIndex />} />
-                  <Route path="/prescriptions" element={<PatientPrescriptionsPage />} />
-                  <Route path="/pharmacies" element={<PatientPharmaciesPage />} />
-                  <Route path="/doctors" element={<PatientDoctorsPage />} />
-                  <Route path="/patients" element={<PatientPatientsPage />} />
-                  <Route path="/medicines" element={<PatientMedicinesPage />} />
-                  <Route path="/notifications" element={<PatientNotificationsPage />} />
-                  <Route path="/settings" element={<PatientSettingsPage />} />
-                  <Route path="*" element={<PatientNotFound />} />
-                </>
-            )}
+          {/* Admin View */}
+          {role === "admin" && (
+            <>
+              <Route path="/" element={<AdminIndex />} />
+              <Route path="/prescriptions" element={<AdminPrescriptionsPage />} />
+              <Route path="/pharmacies" element={<AdminPharmaciesPage />} />
+              <Route path="/doctors" element={<AdminDoctorsPage />} />
+              <Route path="/patients" element={<AdminPatientsPage />} />
+              <Route path="/medicines" element={<AdminMedicinesPage />} />
+              <Route path="/notifications" element={<AdminNotificationsPage />} />
+              <Route path="/settings" element={<AdminSettingsPage />} />
+              <Route path="/reports" element={<AdminReportsPage />} />
+              <Route path="/profile" element={<AdminProfilePage />} />
+              <Route path="*" element={<AdminNotFound />} />
+            </>
+          )}
 
-            {/* Doctor View */}
-            {role === "doctor" && (
-                <>
-                  <Route path="/" element={<DoctorIndex />} />
-                  <Route path="/appointments" element={<DoctorAppointmentsPage />} />
-                  <Route path="/create-prescription" element={<DoctorCreatePrescriptionPage />} />
-                  <Route path="/doctors" element={<DoctorDoctorsPage />} />
-                  <Route path="/patients" element={<DoctorPatientsPage />} />
-                  <Route path="/pharmacies" element={<DoctorPharmaciesPage />} />
-                  <Route path="/medicines" element={<DoctorMedicinesPage />} />
-                  <Route path="/notifications" element={<DoctorNotificationsPage />} />
-                  <Route path="/settings" element={<DoctorSettingsPage />} />
-                  <Route path="*" element={<DoctorNotFound />} />
-                </>
-            )}
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+          {/* Patient View */}
+          {role === "patient" && (
+            <>
+              <Route path="/" element={<PatientIndex />} />
+              <Route path="/prescriptions" element={<PatientPrescriptionsPage />} />
+              <Route path="/pharmacies" element={<PatientPharmaciesPage />} />
+              <Route path="/doctors" element={<PatientDoctorsPage />} />
+              <Route path="/patients" element={<PatientPatientsPage />} />
+              <Route path="/medicines" element={<PatientMedicinesPage />} />
+              <Route path="/notifications" element={<PatientNotificationsPage />} />
+              <Route path="/settings" element={<PatientSettingsPage />} />
+              <Route path="*" element={<PatientNotFound />} />
+            </>
+          )}
+
+          {/* Doctor View */}
+          {role === "doctor" && (
+            <>
+              <Route path="/" element={<DoctorIndex />} />
+              <Route path="/appointments" element={<DoctorAppointmentsPage />} />
+              <Route path="/create-prescription" element={<DoctorCreatePrescriptionPage />} />
+              <Route path="/doctors" element={<DoctorDoctorsPage />} />
+              <Route path="/patients" element={<DoctorPatientsPage />} />
+              <Route path="/pharmacies" element={<DoctorPharmaciesPage />} />
+              <Route path="/medicines" element={<DoctorMedicinesPage />} />
+              <Route path="/notifications" element={<DoctorNotificationsPage />} />
+              <Route path="/settings" element={<DoctorSettingsPage />} />
+              <Route path="*" element={<DoctorNotFound />} />
+            </>
+          )}
+
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
 );
 
 export default App;
