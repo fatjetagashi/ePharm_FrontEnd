@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/DoctorComponents/DashboardLayout';
 import { Button } from '@/components/ui/button';
 import { Bell, BellDot, Check } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';

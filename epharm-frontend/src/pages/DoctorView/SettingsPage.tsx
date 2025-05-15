@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/DoctorComponents/DashboardLayout';
 import { User, Bell, Shield, Key, LogOut } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';

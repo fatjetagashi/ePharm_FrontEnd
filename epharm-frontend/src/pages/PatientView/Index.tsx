@@ -1,6 +1,6 @@
 
 import React from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/PatientComponents/DashboardLayout';
 import PatientDashboard from '@/components/Dashboard/PatientDashboard';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';

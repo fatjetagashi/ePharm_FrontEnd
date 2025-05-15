@@ -1,6 +1,6 @@
 
 import React from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/AdminComponents/DashboardLayout';
 import { Search, Filter, Plus, Users } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';

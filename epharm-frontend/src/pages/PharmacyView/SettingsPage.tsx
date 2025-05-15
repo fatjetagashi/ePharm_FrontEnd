@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/PharmacyComponents/DashboardLayout';
 import { Settings, User, Building, Bell, Lock, Shield, Store } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {

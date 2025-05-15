@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/PharmacyComponents/DashboardLayout';
 import { Bell, Search, CheckCircle, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -18,11 +18,12 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 
 // Mock data for notifications
+// @ts-ignore
 const mockNotifications: Notification[] = [
   {
     id: '1',
     user_id: '1',
-    type: 'medicine_low_stock',
+    type: 'medication',
     title: 'Low Stock Alert: Amoxicillin',
     message: 'Amoxicillin 500mg stock is below the minimum threshold. Current stock: 5 units.',
     is_read: false,

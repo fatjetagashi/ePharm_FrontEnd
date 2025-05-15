@@ -1,23 +1,23 @@
 
 import React, { useState } from 'react';
-import DashboardLayout from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/Layout/AdminComponents/DashboardLayout';
 import { User, Bell, Shield, Building, FileText, UserCog, ClipboardList, Globe, Check, X, Plus, Edit, Trash2 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/card';
-import { Label } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/label';
-import { Input } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/input';
-import { Button } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/button';
-import { Separator } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/separator';
-import { Switch } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/tabs';
-import { Badge } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogFooter, DialogTitle, DialogTrigger } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/dialog';
-import { Checkbox } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/checkbox';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/table';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from "sonner";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../../../../../../Downloads/pharm-nexus-connect-37-main (1)/pharm-nexus-connect-37-main/src/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 // Define interfaces for our data models
 interface Pharmacy {
@@ -460,7 +460,7 @@ const SettingsPage = () => {
               </FormItem>
             )}
           />
-          
+
           <DialogFooter>
             <Button type="submit">Save Changes</Button>
           </DialogFooter>
@@ -493,7 +493,7 @@ const SettingsPage = () => {
               </FormItem>
             )}
           />
-          
+
           <DialogFooter>
             <Button type="submit">Save Role</Button>
           </DialogFooter>
@@ -527,7 +527,7 @@ const SettingsPage = () => {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="description"
@@ -541,7 +541,7 @@ const SettingsPage = () => {
               </FormItem>
             )}
           />
-          
+
           <DialogFooter>
             <Button type="submit">Save Permission</Button>
           </DialogFooter>
@@ -574,7 +574,7 @@ const SettingsPage = () => {
               </FormItem>
             )}
           />
-          
+
           <DialogFooter>
             <Button type="submit">Save Delivery Type</Button>
           </DialogFooter>
@@ -582,7 +582,7 @@ const SettingsPage = () => {
       </Form>
     );
   };
-  
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -643,9 +643,9 @@ const SettingsPage = () => {
                           : 'Add a new pharmacy to the platform.'}
                       </DialogDescription>
                     </DialogHeader>
-                    <PharmacyForm 
-                      pharmacy={selectedPharmacy} 
-                      onSave={handleSavePharmacy} 
+                    <PharmacyForm
+                      pharmacy={selectedPharmacy}
+                      onSave={handleSavePharmacy}
                     />
                   </DialogContent>
                 </Dialog>
@@ -797,9 +797,9 @@ const SettingsPage = () => {
                           : 'Add a new role to the platform.'}
                       </DialogDescription>
                     </DialogHeader>
-                    <RoleForm 
-                      role={editingRole} 
-                      onSave={handleSaveRole} 
+                    <RoleForm
+                      role={editingRole}
+                      onSave={handleSaveRole}
                     />
                   </DialogContent>
                 </Dialog>
@@ -867,9 +867,9 @@ const SettingsPage = () => {
                           : 'Add a new permission to the platform.'}
                       </DialogDescription>
                     </DialogHeader>
-                    <PermissionForm 
-                      permission={editingPermission} 
-                      onSave={handleSavePermission} 
+                    <PermissionForm
+                      permission={editingPermission}
+                      onSave={handleSavePermission}
                     />
                   </DialogContent>
                 </Dialog>
@@ -951,9 +951,9 @@ const SettingsPage = () => {
                           : 'Add a new delivery type to the platform.'}
                       </DialogDescription>
                     </DialogHeader>
-                    <DeliveryTypeForm 
-                      deliveryType={editingDeliveryType} 
-                      onSave={handleSaveDeliveryType} 
+                    <DeliveryTypeForm
+                      deliveryType={editingDeliveryType}
+                      onSave={handleSaveDeliveryType}
                     />
                   </DialogContent>
                 </Dialog>
