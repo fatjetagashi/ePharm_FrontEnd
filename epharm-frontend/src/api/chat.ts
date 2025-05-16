@@ -1,4 +1,5 @@
 import api from '../lib/api';
+
 export interface ChatRoom {
     id: number;
     patient: {
@@ -18,16 +19,16 @@ export interface Message {
 }
 
 export const fetchChatRooms = async (): Promise<ChatRoom[]> => {
-    const response = await api.get('/chat-rooms');
-    return response.data.data; // Adjust based on your API response structure
+    const response = await api.get<{ data: ChatRoom[] }>('/chat-rooms');
+    return response.data.data;
 };
 
 export const fetchMessages = async (chatRoomId: number): Promise<Message[]> => {
-    const response = await api.get(`/chat-rooms/${chatRoomId}/messages`);
-    return response.data.data; // Adjust based on your API response structure
+    const response = await api.get<{ data: Message[] }>(`/chat-rooms/${chatRoomId}/messages`);
+    return response.data.data;
 };
 
 export const sendMessage = async (chatRoomId: number, message: string): Promise<Message> => {
-    const response = await api.post(`/chat-rooms/${chatRoomId}/messages`, { message });
-    return response.data.data; // Adjust based on your API response structure
+    const response = await api.post<{ data: Message }>(`/chat-rooms/${chatRoomId}/messages`, { message });
+    return response.data.data;
 };
