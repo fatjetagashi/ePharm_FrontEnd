@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
@@ -9,8 +8,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { ArrowLeft, Search, Send, User, Plus, Phone, Video } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import { fetchChatRooms, fetchMessages, sendMessage, ChatRoom, Message } from '@/api/chat';
 
-// Helper function to parse query parameters
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
@@ -24,129 +23,72 @@ const ChatPage = () => {
     const [selectedChat, setSelectedChat] = useState<number | null>(null);
     const [message, setMessage] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
+    const [chatMessages, setChatMessages] = useState<Record<number, Message[]>>({});
 
-    // Mock data
-    const [chatRooms, setChatRooms] = useState([
-        {
-            id: 1,
-            patientId: '1',
-            name: 'Alice Johnson',
-            lastMessage: 'Thank you for the prescription, doctor.',
-            timestamp: new Date(2025, 3, 24, 14, 30),
-            unread: 0
-        },
-        {
-            id: 2,
-            patientId: '2',
-            name: 'Robert Smith',
-            lastMessage: 'When should I take the medication?',
-            timestamp: new Date(2025, 3, 24, 10, 15),
-            unread: 2
-        },
-        {
-            id: 3,
-            patientId: '3',
-            name: 'Emma Davis',
-            lastMessage: 'I\'m feeling better after taking the medication.',
-            timestamp: new Date(2025, 3, 23, 16, 45),
-            unread: 0
-        },
-        {
-            id: 4,
-            patientId: '4',
-            name: 'James Wilson',
-            lastMessage: 'Do I need to schedule another appointment?',
-            timestamp: new Date(2025, 3, 23, 9, 20),
-            unread: 1
-        },
-    ]);
-
-    // Mock messages data
-    const [chatMessages, setChatMessages] = useState<Record<number, Array<{id: number, sender: 'doctor' | 'patient', text: string, timestamp: Date}>>>({
-        1: [
-            { id: 1, sender: 'patient', text: 'Hello Dr. Johnson, I wanted to ask you about my prescription.', timestamp: new Date(2025, 3, 24, 14, 10) },
-            { id: 2, sender: 'doctor', text: 'Hello Alice, how can I help you?', timestamp: new Date(2025, 3, 24, 14, 15) },
-            { id: 3, sender: 'patient', text: 'Is it normal to feel tired after taking the medication?', timestamp: new Date(2025, 3, 24, 14, 20) },
-            { id: 4, sender: 'doctor', text: 'Yes, fatigue can be a common side effect. If it persists for more than a few days, please let me know.', timestamp: new Date(2025, 3, 24, 14, 25) },
-            { id: 5, sender: 'patient', text: 'Thank you for the prescription, doctor.', timestamp: new Date(2025, 3, 24, 14, 30) },
-        ],
-        2: [
-            { id: 1, sender: 'patient', text: 'Hi doctor, I just picked up my prescription.', timestamp: new Date(2025, 3, 24, 10, 0) },
-            { id: 2, sender: 'doctor', text: 'Great! Make sure to follow the dosage instructions.', timestamp: new Date(2025, 3, 24, 10, 5) },
-            { id: 3, sender: 'patient', text: 'When should I take the medication?', timestamp: new Date(2025, 3, 24, 10, 15) },
-        ],
-        3: [
-            { id: 1, sender: 'patient', text: 'Hello doctor, I started the new inhaler yesterday.', timestamp: new Date(2025, 3, 23, 16, 30) },
-            { id: 2, sender: 'doctor', text: 'How are you feeling now? Any improvement?', timestamp: new Date(2025, 3, 23, 16, 35) },
-            { id: 3, sender: 'patient', text: 'I\'m feeling better after taking the medication.', timestamp: new Date(2025, 3, 23, 16, 45) },
-        ],
-        4: [
-            { id: 1, sender: 'patient', text: 'Hello Dr. Johnson, I finished my medication course.', timestamp: new Date(2025, 3, 23, 9, 0) },
-            { id: 2, sender: 'doctor', text: 'That\'s good to hear. How are your symptoms now?', timestamp: new Date(2025, 3, 23, 9, 10) },
-            { id: 3, sender: 'patient', text: 'Do I need to schedule another appointment?', timestamp: new Date(2025, 3, 23, 9, 20) },
-        ]
-    });
-
-    // Find and select chat if patientId is provided
+    // Fetch chat rooms from API
     useEffect(() => {
-        if (preselectedPatientId) {
-            const chat = chatRooms.find(room => room.patientId === preselectedPatientId);
-            if (chat) {
-                setSelectedChat(chat.id);
-                // Mark as read
-                setChatRooms(chatRooms.map(room =>
-                    room.id === chat.id ? { ...room, unread: 0 } : room
-                ));
+        const loadChatRooms = async () => {
+            const rooms = await fetchChatRooms();
+            setChatRooms(rooms);
+
+            // Auto-select if patient ID provided in query
+            if (preselectedPatientId) {
+                const preselected = rooms.find(r => r.patient.id.toString() === preselectedPatientId);
+                if (preselected) {
+                    handleSelectChat(preselected.id);
+                }
             }
-        }
+        };
+        loadChatRooms();
     }, [preselectedPatientId]);
 
-    // Auto-scroll to bottom of messages
+    // Scroll to bottom when messages change
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [selectedChat, chatMessages]);
 
-    const handleSendMessage = (e: React.FormEvent) => {
+    // Select and load chat messages
+    const handleSelectChat = async (chatRoomId: number) => {
+        setSelectedChat(chatRoomId);
+        const messages = await fetchMessages(chatRoomId);
+        setChatMessages(prev => ({ ...prev, [chatRoomId]: messages }));
+        setChatRooms(prev =>
+            prev.map(room => (room.id === chatRoomId ? { ...room, unread: 0 } : room))
+        );
+    };
+
+    // Send new message
+    const handleSendMessage = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!message.trim() || !selectedChat) return;
 
-        // Add message to chat
-        const newMessage = {
-            id: chatMessages[selectedChat].length + 1,
-            sender: 'doctor' as const,
-            text: message,
-            timestamp: new Date(),
-        };
+        const newMessage = await sendMessage(selectedChat, message);
 
-        setChatMessages({
-            ...chatMessages,
-            [selectedChat]: [...chatMessages[selectedChat], newMessage],
-        });
+        setChatMessages(prev => ({
+            ...prev,
+            [selectedChat]: [...(prev[selectedChat] || []), newMessage],
+        }));
 
-        // Update last message in chat room list
-        setChatRooms(chatRooms.map(room =>
-            room.id === selectedChat
-                ? { ...room, lastMessage: message, timestamp: new Date() }
-                : room
-        ));
+        setChatRooms(prev =>
+            prev.map(room =>
+                room.id === selectedChat
+                    ? { ...room, lastMessage: newMessage.text, createdAt: newMessage.timestamp }
+                    : room
+            )
+        );
 
-        // Clear input
         setMessage('');
     };
 
-    // Filter chat rooms by search term
     const filteredChatRooms = chatRooms.filter(room =>
-        room.name.toLowerCase().includes(searchTerm.toLowerCase())
+        room.patient.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
         <DashboardLayout>
             <div className="space-y-6">
-                <Button
-                    variant="ghost"
-                    className="flex items-center"
-                    onClick={() => navigate(-1)}
-                >
+                <Button variant="ghost" className="flex items-center" onClick={() => navigate(-1)}>
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back
                 </Button>
@@ -157,7 +99,7 @@ const ChatPage = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                    {/* Chat list */}
+                    {/* Chat Rooms List */}
                     <Card className="lg:col-span-1">
                         <CardHeader className="px-4">
                             <div className="relative">
@@ -181,27 +123,22 @@ const ChatPage = () => {
                                                 ? "bg-health-light text-health-primary"
                                                 : "hover:bg-gray-100"
                                         )}
-                                        onClick={() => {
-                                            setSelectedChat(chat.id);
-                                            setChatRooms(chatRooms.map(room =>
-                                                room.id === chat.id ? { ...room, unread: 0 } : room
-                                            ));
-                                        }}
+                                        onClick={() => handleSelectChat(chat.id)}
                                     >
                                         <div className="w-10 h-10 rounded-full bg-health-light flex items-center justify-center text-health-primary relative">
                                             {chat.unread > 0 && (
                                                 <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">{chat.unread}</span>
                                             )}
                                             <p className="font-medium">
-                                                {chat.name.split(' ').map(n => n[0]).join('')}
+                                                {chat.patient.name.split(' ').map(n => n[0]).join('')}
                                             </p>
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-medium truncate">{chat.name}</p>
+                                            <p className="font-medium truncate">{chat.patient.name}</p>
                                             <p className="text-xs text-muted-foreground truncate">{chat.lastMessage}</p>
                                         </div>
                                         <div className="text-xs text-muted-foreground">
-                                            {format(chat.timestamp, 'HH:mm')}
+                                            {format(new Date(chat.createdAt), 'HH:mm')}
                                         </div>
                                     </div>
                                 ))}
@@ -209,7 +146,7 @@ const ChatPage = () => {
                                 {filteredChatRooms.length === 0 && (
                                     <div className="p-4 text-center">
                                         <p className="text-muted-foreground">No conversations found</p>
-                                        <Button variant="outline" className="mt-2" onClick={() => {}}>
+                                        <Button variant="outline" className="mt-2">
                                             <Plus className="mr-2 h-4 w-4" />
                                             New Conversation
                                         </Button>
@@ -219,18 +156,21 @@ const ChatPage = () => {
                         </CardContent>
                     </Card>
 
-                    {/* Chat messages */}
+                    {/* Chat Messages */}
                     <Card className="lg:col-span-3 flex flex-col h-[calc(100vh-16rem)]">
                         {selectedChat ? (
                             <>
                                 <CardHeader className="border-b px-6 py-4 flex flex-row items-center gap-4">
                                     <div className="w-10 h-10 rounded-full bg-health-light flex items-center justify-center">
                                         <p className="font-medium text-health-primary">
-                                            {chatRooms.find(room => room.id === selectedChat)?.name.split(' ').map(n => n[0]).join('')}
+                                            {chatRooms.find(room => room.id === selectedChat)?.patient.name
+                                                .split(' ').map(n => n[0]).join('')}
                                         </p>
                                     </div>
                                     <div className="flex-1">
-                                        <CardTitle>{chatRooms.find(room => room.id === selectedChat)?.name}</CardTitle>
+                                        <CardTitle>
+                                            {chatRooms.find(room => room.id === selectedChat)?.patient.name}
+                                        </CardTitle>
                                         <p className="text-sm text-muted-foreground">Patient</p>
                                     </div>
                                     <div className="flex gap-2">
@@ -263,7 +203,7 @@ const ChatPage = () => {
                                                 >
                                                     <p>{msg.text}</p>
                                                     <p className="text-xs opacity-70 mt-1">
-                                                        {format(msg.timestamp, 'HH:mm')}
+                                                        {format(new Date(msg.timestamp), 'HH:mm')}
                                                     </p>
                                                 </div>
                                             </div>
@@ -295,7 +235,7 @@ const ChatPage = () => {
                                 <p className="text-muted-foreground mt-2">
                                     Choose a patient from the list to start messaging
                                 </p>
-                                <Button className="mt-4" onClick={() => {}}>
+                                <Button className="mt-4">
                                     <Plus className="mr-2 h-4 w-4" />
                                     Start New Conversation
                                 </Button>
@@ -309,4 +249,3 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
-
