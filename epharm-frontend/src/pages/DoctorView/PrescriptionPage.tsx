@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileText, CheckCircle, Clock, X, Calendar, User, Pill } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { fetchPrescriptions, Prescription } from '@/api/prescriptions';
+import { fetchPrescriptions, Prescription } from '@/api/prescription';
 
 const PrescriptionsPage = () => {
     const navigate = useNavigate();
