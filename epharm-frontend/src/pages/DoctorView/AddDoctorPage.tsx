@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
@@ -26,8 +25,9 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { toast } from 'sonner';
+import {addDoctor, AddDoctorPayload} from '@/api/doctor'; // ✅ import your API function
 
-// Form validation schema
+// 🧠 Zod validation schema
 const formSchema = z.object({
     name: z.string().min(2, { message: "Doctor name is required" }),
     email: z.string().email({ message: "Please enter a valid email address" }),
@@ -44,25 +44,33 @@ type FormValues = z.infer<typeof formSchema>;
 const AddDoctorPage = () => {
     const navigate = useNavigate();
 
-    // Default form values
-    const defaultValues: Partial<FormValues> = {
-        status: "verification",
+    const defaultValues: FormValues = {
+        name: '',
+        email: '',
+        specialization: '',
+        licenseNumber: '',
+        phone: '',
+        address: '',
+        bio: '', // even though optional, still safe to default to ''
+        status: 'verification',
     };
+
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues,
     });
 
-    const onSubmit = (data: FormValues) => {
-        // In a real app, this would send the data to an API
-        console.log('Form submitted:', data);
-
-        // Show success message
-        toast.success("Doctor added successfully!");
-
-        // Navigate back to the doctors list
-        navigate('/doctors');
+    // ✅ Submit with API integration
+    const onSubmit = async (data: FormValues) => {
+        try {
+            await addDoctor(data as AddDoctorPayload);
+            toast.success("Doctor added successfully!");
+            navigate('/doctors');
+        } catch (error: any) {
+            console.error("Error creating doctor:", error);
+            toast.error(error.response?.data?.message || "Failed to add doctor.");
+        }
     };
 
     return (
