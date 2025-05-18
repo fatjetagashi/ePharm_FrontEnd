@@ -3,31 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '@/components/Layout/DoctorComponents/DashboardLayout';
 import { fetchPatients } from '@/api/patient';
 import { fetchPrescriptionsByPatient } from '@/api/prescription';
-import { Search, Filter, Plus, FileText, QrCode } from 'lucide-react';
-
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Table } from '@/components/ui/table';
-import { TableBody } from '@/components/ui/table';
-import { TableCell } from '@/components/ui/table';
-import { TableHead } from '@/components/ui/table';
-import { TableHeader } from '@/components/ui/table';
-import { TableRow } from '@/components/ui/table';
-import { Select } from '@/components/ui/select';
-import { SelectContent } from '@/components/ui/select';
-import { SelectItem } from '@/components/ui/select';
-import { SelectTrigger } from '@/components/ui/select';
-import { SelectValue } from '@/components/ui/select';
-import { Dialog } from '@/components/ui/dialog';
-import { DialogContent } from '@/components/ui/dialog';
-import { DialogDescription } from '@/components/ui/dialog';
-import { DialogFooter } from '@/components/ui/dialog';
-import { DialogHeader } from '@/components/ui/dialog';
-import { DialogTitle } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
+import {
+    Search, Filter, Plus, FileText, QrCode
+} from 'lucide-react';
+import {
+    Input, Button, Card, CardContent, Badge,
+    Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+    Dialog, DialogContent, DialogDescription, DialogFooter,
+    DialogHeader, DialogTitle, Label
+} from '@/components/ui';
 
 const PatientsPage = () => {
     const navigate = useNavigate();
