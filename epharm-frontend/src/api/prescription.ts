@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from './api';
 
 export interface Medication {
     name: string;
@@ -18,7 +18,14 @@ export interface Prescription {
     notes: string;
 }
 
+// Get all prescriptions
 export const fetchPrescriptions = async (): Promise<Prescription[]> => {
-    const response = await axios.get('/api/prescriptions');
-    return response.data.data; // Assuming Laravel uses resources
+    const response = await api.get('/prescriptions');
+    return response.data.data;
+};
+
+// Get prescriptions by patient ID
+export const fetchPrescriptionsByPatient = async (patientId: string): Promise<Prescription[]> => {
+    const response = await api.get(`/patients/${patientId}/prescriptions`);
+    return response.data.data;
 };
