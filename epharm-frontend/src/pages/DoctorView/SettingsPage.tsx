@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/Layout/DoctorComponents/DashboardLayout';
 import { User, Bell, Shield, Key, LogOut } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,17 +10,35 @@ import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import axios from '@/lib/axios'; // Axios instance
 
 const SettingsPage = () => {
     const { toast } = useToast();
+
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [profile, setProfile] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const res = await axios.get('/api/doctor/settings/profile');
+                setProfile(res.data.data);
+            } catch (error) {
+                toast({
+                    title: "Error",
+                    description: "Failed to load profile.",
+                    variant: "destructive"
+                });
+            }
+        };
+        fetchProfile();
+    }, []);
 
     const handleUpdatePassword = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validate passwords
         if (!currentPassword || !newPassword || !confirmPassword) {
             toast({
                 title: "Error",
@@ -40,18 +57,17 @@ const SettingsPage = () => {
             return;
         }
 
-        // In a real app, you would send a request to your backend
-        // For this demo, we'll simulate a successful update
         toast({
             title: "Success",
-            description: "Your password has been updated successfully",
+            description: "Your password has been updated successfully"
         });
 
-        // Clear form
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
     };
+
+    if (!profile) return <div className="p-4">Loading profile...</div>;
 
     return (
         <DashboardLayout>
@@ -89,28 +105,28 @@ const SettingsPage = () => {
                                 <div className="flex flex-col lg:flex-row gap-4">
                                     <div className="space-y-2 flex-1">
                                         <Label htmlFor="fullName">Full Name</Label>
-                                        <Input id="fullName" defaultValue="Jane Doe" />
+                                        <Input id="fullName" defaultValue={profile?.name ?? ''} />
                                     </div>
                                     <div className="space-y-2 flex-1">
                                         <Label htmlFor="email">Email</Label>
-                                        <Input id="email" defaultValue="jane.doe@example.com" type="email" />
+                                        <Input id="email" defaultValue={profile?.email ?? ''} type="email" />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col lg:flex-row gap-4">
                                     <div className="space-y-2 flex-1">
                                         <Label htmlFor="phone">Phone Number</Label>
-                                        <Input id="phone" defaultValue="+1 (555) 123-4567" />
+                                        <Input id="phone" defaultValue={profile?.phone ?? ''} />
                                     </div>
                                     <div className="space-y-2 flex-1">
                                         <Label htmlFor="license">License Number</Label>
-                                        <Input id="license" defaultValue="ABCD123456" />
+                                        <Input id="license" defaultValue={profile?.license_number ?? ''} />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="address">Address</Label>
-                                    <Input id="address" defaultValue="123 Main St, Apt 4B" />
+                                    <Input id="address" defaultValue={profile?.address ?? ''} />
                                 </div>
 
                                 <div className="flex flex-col lg:flex-row gap-4">
@@ -373,4 +389,3 @@ const SettingsPage = () => {
 };
 
 export default SettingsPage;
-
