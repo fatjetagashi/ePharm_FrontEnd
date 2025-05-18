@@ -36,7 +36,6 @@ import DoctorAppointmentsPage from "./pages/DoctorView/AppointmentsPage";
 import DoctorCreatePrescriptionPage from "./pages/DoctorView/CreatePrescriptionPage";
 import DoctorDoctorsPage from "./pages/DoctorView/DoctorsPage";
 import DoctorPatientsPage from "./pages/DoctorView/PatientsPage";
-import DoctorPharmaciesPage from "./pages/DoctorView/PharmaciesPage";
 import DoctorMedicinesPage from "./pages/DoctorView/MedicinesPage";
 import DoctorNotificationsPage from "./pages/DoctorView/NotificationsPage";
 import DoctorSettingsPage from "./pages/DoctorView/SettingsPage";
@@ -92,7 +91,6 @@ const App = () => (
               <Route path="/create-prescription" element={<DoctorCreatePrescriptionPage />} />
               <Route path="/doctors" element={<DoctorDoctorsPage />} />
               <Route path="/patients" element={<DoctorPatientsPage />} />
-              <Route path="/pharmacies" element={<DoctorPharmaciesPage />} />
               <Route path="/medicines" element={<DoctorMedicinesPage />} />
               <Route path="/notifications" element={<DoctorNotificationsPage />} />
               <Route path="/settings" element={<DoctorSettingsPage />} />

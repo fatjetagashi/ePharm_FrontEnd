@@ -8,7 +8,6 @@ import Index from "@/pages/DoctorView/Index";
 import NotFound from "./pages/DoctorView/NotFound";
 import PrescriptionsPage from "./pages/DoctorView/PrescriptionPage";
 import CreatePrescriptionPage from "./pages/DoctorView/CreatePrescriptionPage";
-import PharmaciesPage from "./pages/DoctorView/PharmaciesPage";
 import SettingsPage from "./pages/DoctorView/SettingsPage";
 import DoctorsPage from "./pages/DoctorView/DoctorsPage";
 import AddDoctorPage from "./pages/DoctorView/AddDoctorPage";
@@ -30,7 +29,6 @@ const App = () => (
                     <Route path="/" element={<Index />} />
                     <Route path="/prescriptions" element={<PrescriptionsPage />} />
                     <Route path="/prescriptions/create" element={<CreatePrescriptionPage />} />
-                    <Route path="/pharmacies" element={<PharmaciesPage />} />
                     <Route path="/doctors" element={<DoctorsPage />} />
                     <Route path="/doctors/add" element={<AddDoctorPage />} />
                     <Route path="/patients" element={<PatientsPage />} />
