@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DashboardLayout from '@/components/Layout/AdminComponents/DashboardLayout';
 import { User, Bell, Shield, Building, FileText, UserCog, ClipboardList, Globe, Check, X, Plus, Edit, Trash2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +18,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from "sonner";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { fetchRoles, storeRole, updateRole } from '@/api/role';
+import { fetchPermissions, storePermission, updatePermission } from '@/api/permission';
 
 // Define interfaces for our data models
 interface Pharmacy {
@@ -171,6 +173,31 @@ const SettingsPage = () => {
     '4': ['3', '4', '5'], // Pharmacy permissions
   };
 
+  useEffect(() => {
+    const loadRoles = async () => {
+        try {
+            const data = await fetchRoles();
+            console.log(data)
+            setRoles(data);
+        } catch (err) {
+            console.error('Failed to fetch patients', err);
+        }
+    };
+
+    const loadPermissions = async () => {
+      try {
+          const data = await fetchPermissions();
+          console.log(data)
+          setPermissions(data);
+      } catch (err) {
+          console.error('Failed to fetch patients', err);
+      }
+  };
+    loadRoles();
+    loadPermissions()
+}, []);
+
+
   // Edit pharmacy handler
   const handleEditPharmacy = (pharmacy: Pharmacy) => {
     setSelectedPharmacy(pharmacy);
@@ -256,7 +283,7 @@ const SettingsPage = () => {
   };
 
   // Handler for adding/editing roles
-  const handleSaveRole = (data: { name: string }) => {
+  const handleSaveRole = async (data: { name: string }) => {
     if (editingRole) {
       const updatedRoles = roles.map(role => {
         if (role.id === editingRole.id) {
@@ -268,6 +295,12 @@ const SettingsPage = () => {
         }
         return role;
       });
+
+     const updateRoleResponse = await updateRole(editingRole.id,{
+      name: data.name,
+      id: editingRole.id,
+     });
+
       setRoles(updatedRoles);
       toast("Role updated successfully");
     } else {
@@ -278,6 +311,7 @@ const SettingsPage = () => {
         created_at: new Date().toISOString().split('T')[0],
         updated_at: new Date().toISOString().split('T')[0]
       };
+     const storeRoleResponse = await storeRole(newRole);
       setRoles([...roles, newRole]);
       toast("New role added successfully");
     }
@@ -286,7 +320,7 @@ const SettingsPage = () => {
   };
 
   // Handler for adding/editing permissions
-  const handleSavePermission = (data: { name: string, description: string }) => {
+  const handleSavePermission = async (data: { name: string, description: string }) => {
     if (editingPermission) {
       const updatedPermissions = permissions.map(permission => {
         if (permission.id === editingPermission.id) {
@@ -299,6 +333,11 @@ const SettingsPage = () => {
         }
         return permission;
       });
+     const updatePermissionResponse = await updatePermission(editingPermission.id,
+      {
+        name: data.name,
+        description: data.description,
+      });
       setPermissions(updatedPermissions);
       toast("Permission updated successfully");
     } else {
@@ -310,9 +349,11 @@ const SettingsPage = () => {
         created_at: new Date().toISOString().split('T')[0],
         updated_at: new Date().toISOString().split('T')[0]
       };
+     const storePermissionResponse = await storePermission(newPermission);
       setPermissions([...permissions, newPermission]);
       toast("New permission added successfully");
     }
+
     setNewPermissionDialog(false);
     setEditingPermission(null);
   };
