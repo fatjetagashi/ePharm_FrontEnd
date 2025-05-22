@@ -44,7 +44,7 @@ import DoctorRegisterPage from "./pages/DoctorView/DoctorRegisterPage";
 import DoctorRegisterLicense from "./pages/DoctorView/DoctorRegisterLicense";
 import PharmacyRegisterPage from "./pages/PharmacyView/PharmcyRegisterPage";
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage.tsx";
+import LoginPage from "./pages/LoginPage";
 import Index from "./pages/PharmacyView/Index";
 import PharmacyDashboardPage from "./pages/PharmacyView/PharmacyDashboard";
 import PrescriptionsPage from "./pages/PharmacyView/PrescriptionsPage";
@@ -64,6 +64,7 @@ const App = () => {
     const queryClient = new QueryClient();
     const { role } = useAuth(); // ✅ Valid usage of hook inside function
     console.log("👤 Current role in App:", role);
+    {console.log(role)}
 
     {console.log(role)}
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
 import MedicineCard from '@/components/Medicine/MedicineCard';
 import { Search, Filter, Plus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -12,6 +11,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import api from '@/lib/axios'; // ✅ Uses your configured axios instance
+import DashboardLayout from '@/components/Layout/DoctorComponents/DashboardLayout';
 
 // ✅ Use this only if you do NOT import from global `types/index.ts`
 interface Medicine {
