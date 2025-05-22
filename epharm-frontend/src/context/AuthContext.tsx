@@ -1,5 +1,3 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -7,16 +5,16 @@ import { useAuth } from "./context/AuthContext";
 
 // AdminView pages
 import AdminIndex from "./pages/AdminView/Index";
-@@ -28,6 +28,7 @@
-    import PatientPatientsPage from "./pages/PatientView/PatientsPage";
+@@ -28,6 +28,7 @@ import PatientDoctorsPage from "./pages/PatientView/DoctorsPage";
+import PatientPatientsPage from "./pages/PatientView/PatientsPage";
 import PatientMedicinesPage from "./pages/PatientView/MedicinesPage";
 import PatientNotificationsPage from "./pages/PatientView/NotificationsPage";
 import PatientRegisterPage from "./pages/PatientView/PatientRegisterPage";
 
 // DoctorView pages
 import DoctorIndex from "./pages/DoctorView/Index";
-@@ -39,69 +40,87 @@
-    import DoctorMedicinesPage from "./pages/DoctorView/MedicinesPage";
+@@ -39,69 +40,87 @@ import DoctorPatientsPage from "./pages/DoctorView/PatientsPage";
+import DoctorMedicinesPage from "./pages/DoctorView/MedicinesPage";
 import DoctorNotificationsPage from "./pages/DoctorView/NotificationsPage";
 import DoctorSettingsPage from "./pages/DoctorView/SettingsPage";
 import DoctorRegisterPage from "./pages/DoctorView/DoctorRegisterPage";
