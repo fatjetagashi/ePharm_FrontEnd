@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+// import DashboardLayout from '@/components/Layout/DashboardLayout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileText, CheckCircle, Clock, X, Calendar, User, Pill } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { fetchPrescriptions, Prescription } from '@/api/prescription';
+import DashboardLayout from '@/components/Layout/DoctorComponents/DashboardLayout';
 
 const PrescriptionsPage = () => {
     const navigate = useNavigate();
