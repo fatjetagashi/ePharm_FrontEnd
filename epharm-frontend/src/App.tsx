@@ -64,7 +64,6 @@ const App = () => {
     const queryClient = new QueryClient();
     const { role } = useAuth(); // ✅ Valid usage of hook inside function
     console.log("👤 Current role in App:", role);
-
     {console.log(role)}
 
     return (
