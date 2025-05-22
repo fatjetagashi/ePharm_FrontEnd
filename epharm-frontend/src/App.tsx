@@ -66,6 +66,8 @@ const App = () => {
     console.log("👤 Current role in App:", role);
     {console.log(role)}
 
+    {console.log(role)}
+
     return (
         <QueryClientProvider client={queryClient}>
             <TooltipProvider>
