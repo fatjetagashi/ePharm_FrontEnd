@@ -13,8 +13,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { format } from 'date-fns';
-import SalesList from '@/components/Sales/SalesList';
-import BillsList from '@/components/Sales/BillsList';
+// import SalesList from '@/components/Sales/SalesList';
+// import BillsList from '@/components/Sales/BillsList';
 import { PharmacySale, Bill, SalePatient } from '@/types';
 
 // — your mockSales stays exactly the same —
@@ -239,13 +239,9 @@ const BillingPage = () => {
               <TabsTrigger value="bills">Bills</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="sales" className="mt-6">
-              <SalesList sales={filteredSales} />
-            </TabsContent>
+    
 
-            <TabsContent value="bills" className="mt-6">
-              <BillsList bills={filteredBills} />
-            </TabsContent>
+      
           </Tabs>
         </div>
       </DashboardLayout>

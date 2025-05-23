@@ -9,16 +9,21 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.511.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.56.4",
     "sonner": "^2.0.3",
     "zod": "^3.25.21"
   },
   "devDependencies": {
+    "@types/date-fns": "^2.5.3",
+    "@types/node": "^22.15.21",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.0.0",
-    "typescript": "^5.0.0",
+    "typescript": "^5.8.3",
     "vite": "^6.3.5"
   }
 }

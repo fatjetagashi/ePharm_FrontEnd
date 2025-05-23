@@ -12,8 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import OrderList from '@/components/Order/OrderList';
-import CreateOrderDialog from '@/components/Order/CreateOrderDialog';
+// import OrderList from '@/components/Order/OrderList';
+// import CreateOrderDialog from '@/components/Order/CreateOrderDialog';
 import { SupplierOrder, Supplier } from '@/types';
 import { format } from 'date-fns';
 
@@ -320,30 +320,16 @@ const OrdersPage = () => {
             />
           </TabsContent>
 
-          <TabsContent value="completed" className="mt-6">
-            <OrderList
-              orders={filteredOrders.filter(o =>
-                o.status === 'delivered' || o.status === 'cancelled'
-              )}
-              onStatusChange={handleStatusChange}
-            />
-          </TabsContent>
 
           <TabsContent value="all" className="mt-6">
-            <OrderList
-              orders={filteredOrders}
-              onStatusChange={handleStatusChange}
-            />
+          
           </TabsContent>
         </Tabs>
       </div>
 
-      <CreateOrderDialog
-        open={isCreateOrderOpen}
-        onOpenChange={setIsCreateOrderOpen}
-        onSave={handleCreateOrder}
-        suppliers={mockSuppliers}
-      />
+
+
+
     </DashboardLayout>
   );
 };

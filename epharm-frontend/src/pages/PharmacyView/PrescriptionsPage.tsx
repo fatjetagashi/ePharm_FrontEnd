@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import PrescriptionList from '@/components/Prescription/PrescriptionList';
+// import PrescriptionList from '@/components/Prescription/PrescriptionList';
 import { Prescription } from '@/types';
 
 // Mock data for prescriptions
@@ -341,28 +341,28 @@ const PrescriptionsPage = () => {
           </TabsList>
 
           <TabsContent value="active" className="mt-6">
-            <PrescriptionList
+            {/* <PrescriptionList
               prescriptions={filteredPrescriptions.filter(p =>
                 p.delivery?.status !== 'delivered' && p.delivery?.status !== 'cancelled'
               )}
               onStatusChange={handleStatusChange}
-            />
+            /> */}
           </TabsContent>
 
           <TabsContent value="completed" className="mt-6">
-            <PrescriptionList
+            {/* <PrescriptionList
               prescriptions={filteredPrescriptions.filter(p =>
                 p.delivery?.status === 'delivered' || p.delivery?.status === 'cancelled'
               )}
               onStatusChange={handleStatusChange}
-            />
+            /> */}
           </TabsContent>
 
           <TabsContent value="all" className="mt-6">
-            <PrescriptionList
+            {/* <PrescriptionList
               prescriptions={filteredPrescriptions}
               onStatusChange={handleStatusChange}
-            />
+            /> */}
           </TabsContent>
         </Tabs>
       </div>

@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import PatientList from '@/components/Patient/PatientList';
+// import PatientList from '@/components/Patient/PatientList';
 import { Patient, User, PharmacyCredit } from '@/types';
 
 // Mock data for patients
@@ -247,7 +247,7 @@ const PatientsPage = () => {
           </div>
         </div>
 
-        <PatientList patients={sortedPatients} />
+        {/* <PatientList patients={sortedPatients} /> */}
       </div>
     </DashboardLayout>
   );

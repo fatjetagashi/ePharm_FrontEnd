@@ -1,6 +1,6 @@
 
 import React from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+// import DashboardLayout from '@/components/Layout/DashboardLayout';
 import { Search, Filter, Plus, Users } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import DashboardLayout from '@/components/Layout/PharmacyComponents/DashboardLayout';
 
 const DoctorsPage = () => {
   // Mock doctor data
