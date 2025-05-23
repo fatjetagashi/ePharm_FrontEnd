@@ -58,49 +58,56 @@ A comprehensive web application for managing pharmacy operations, built with Rea
 ### Installation
 
 1. Clone the repository:
+```
 bash
 git clone [your-repository-url]
 cd ePharm_FrontEnd
+```
 
 
 2. Install dependencies:
+```
 bash
 npm install
 # or if using bun
 bun install
+```
 
 
 3. Set up environment variables:
+```
 bash
 cp .env.example .env
-
+```
 
 4. Configure your environment variables in .env:
+```
 env
 VITE_API_URL=your_api_url_here
 VITE_API_KEY=your_api_key_here
 VITE_ENV=development
-
+```
 
 ## 🏃‍♂️ Development
 
 ### Starting the Development Server
-
+```
 bash
 npm run dev
 # or
 bun dev
-
+```
 
 The application will be available at http://localhost:5173
 
 ### Available Scripts
-
+```
 - npm run dev - Start development server
 - npm run build - Create production build
 - npm run preview - Preview production build
 - npm run lint - Run ESLint
 - npm run type-check - Run TypeScript type checking
+```
 
 ## 🏛 Architecture
 
@@ -121,12 +128,13 @@ The application follows a modular architecture with the following key concepts:
 - Form state managed by Formik
 
 ### Routing Structure
+```
 /
 ├── /admin/*     # Admin routes
 ├── /doctor/*    # Doctor routes
 ├── /patient/*   # Patient routes
 └── /pharmacy/*  # Pharmacy routes
-
+```
 
 ## 💻 Technology Stack
 
@@ -155,34 +163,40 @@ The application follows a modular architecture with the following key concepts:
 
 ## 📁 Detailed Project Structure
 
+```
 epharm-frontend/
 ├── src/
 │   ├── api/              # API integration layer
-│   ├── components/       # Shared components
-│   ├── context/         # React context definitions
-│   ├── hooks/           # Custom React hooks
-│   ├── lib/             # Utility functions
-│   ├── pages/           # Route components
-│   ├── types/           # TypeScript types
-│   └── styles/          # Global styles
-├── public/              # Static assets
-├── tests/               # Test files
-└── config/             # Configuration files
+│   ├── components/       # Shared UI components
+│   ├── context/          # React context definitions
+│   ├── hooks/            # Custom React hooks
+│   ├── lib/              # Utility functions
+│   ├── pages/            # Route components
+│   ├── types/            # TypeScript types
+│   └── styles/           # Global styles
+├── public/               # Static assets
+├── tests/                # Unit & E2E tests
+└── config/               # Configuration files
+```
 
 
 ## ⚙️ Configuration
 
 ### Environment Variables
+```
 Create a .env file with the following:
 env
 VITE_API_URL=your_api_url_here
 VITE_API_KEY=your_api_key_here
 VITE_ENV=development
 VITE_LOG_LEVEL=debug
+```
 
 
 ### Build Configuration
+
 The vite.config.ts file contains build settings:
+
 - Development server configuration
 - Build optimization settings
 - Plugin configuration
@@ -264,10 +278,3 @@ The vite.config.ts file contains build settings:
   - Multi-user role system
   - Basic functionality
   - Core features implementation
-
-## 📚 Additional Resources
-
-- [API Documentation]()
-- [Contributing Guidelines]()
-- [Code of Conduct]()
-- [Security Policy]()
