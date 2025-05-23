@@ -2,24 +2,6 @@
 
 A comprehensive web application for managing pharmacy operations, built with React, TypeScript, and Vite. This modern healthcare platform facilitates interactions between patients, doctors, pharmacies, and administrators.
 
-## 📑 Table of Contents
-
-- [Features](#-features)
-- [Prerequisites](#-prerequisites)
-- [Getting Started](#-getting-started)
-- [Development](#️-development)
-- [Architecture](#-architecture)
-- [User Roles & Features](#-user-roles--features)
-- [Technology Stack](#-technology-stack)
-- [Project Structure](#-project-structure)
-- [Configuration](#-configuration)
-- [API Integration](#-api-integration)
-- [Styling Guide](#-styling-guide)
-- [Contributing](#-contributing)
-- [Deployment](#-deployment)
-- [Troubleshooting](#-troubleshooting)
-- [Support](#-support)
-
 ## 🚀 Features
 
 ### Core Features
@@ -76,49 +58,49 @@ A comprehensive web application for managing pharmacy operations, built with Rea
 ### Installation
 
 1. Clone the repository:
-```bash
+bash
 git clone [your-repository-url]
 cd ePharm_FrontEnd
-```
+
 
 2. Install dependencies:
-```bash
+bash
 npm install
 # or if using bun
 bun install
-```
+
 
 3. Set up environment variables:
-```bash
+bash
 cp .env.example .env
-```
 
-4. Configure your environment variables in `.env`:
-```env
+
+4. Configure your environment variables in .env:
+env
 VITE_API_URL=your_api_url_here
 VITE_API_KEY=your_api_key_here
 VITE_ENV=development
-```
+
 
 ## 🏃‍♂️ Development
 
 ### Starting the Development Server
 
-```bash
+bash
 npm run dev
 # or
 bun dev
-```
 
-The application will be available at `http://localhost:5173`
+
+The application will be available at http://localhost:5173
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Create production build
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript type checking
+- npm run dev - Start development server
+- npm run build - Create production build
+- npm run preview - Preview production build
+- npm run lint - Run ESLint
+- npm run type-check - Run TypeScript type checking
 
 ## 🏛 Architecture
 
@@ -139,13 +121,12 @@ The application follows a modular architecture with the following key concepts:
 - Form state managed by Formik
 
 ### Routing Structure
-```
 /
 ├── /admin/*     # Admin routes
 ├── /doctor/*    # Doctor routes
 ├── /patient/*   # Patient routes
 └── /pharmacy/*  # Pharmacy routes
-```
+
 
 ## 💻 Technology Stack
 
@@ -174,7 +155,6 @@ The application follows a modular architecture with the following key concepts:
 
 ## 📁 Detailed Project Structure
 
-```
 epharm-frontend/
 ├── src/
 │   ├── api/              # API integration layer
@@ -188,21 +168,21 @@ epharm-frontend/
 ├── public/              # Static assets
 ├── tests/               # Test files
 └── config/             # Configuration files
-```
+
 
 ## ⚙️ Configuration
 
 ### Environment Variables
-Create a `.env` file with the following:
-```env
+Create a .env file with the following:
+env
 VITE_API_URL=your_api_url_here
 VITE_API_KEY=your_api_key_here
 VITE_ENV=development
 VITE_LOG_LEVEL=debug
-```
+
 
 ### Build Configuration
-The `vite.config.ts` file contains build settings:
+The vite.config.ts file contains build settings:
 - Development server configuration
 - Build optimization settings
 - Plugin configuration
@@ -214,7 +194,7 @@ The `vite.config.ts` file contains build settings:
 - RESTful endpoints
 - JWT authentication
 - Request/Response interceptors
-- Error handling middleware
+
 
 ### Error Handling
 - Global error boundary
@@ -238,12 +218,11 @@ The `vite.config.ts` file contains build settings:
 
 ## 👥 Contributing
 
-### Development Workflow
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- Adea Tabaku
+- Artina Qorrolli
+- Aulona Livoreka
+- Fatjeta Gashi
+- Gerta Hodolli
 
 ### Coding Standards
 - Follow TypeScript best practices
@@ -251,20 +230,6 @@ The `vite.config.ts` file contains build settings:
 - Write meaningful commit messages
 - Document new features
 
-## 🚀 Deployment
-
-### Build Process
-```bash
-npm run build
-# or
-bun run build
-```
-
-### Deployment Platforms
-- Vercel
-- Netlify
-- AWS S3/CloudFront
-- Docker container
 
 ## ❓ Troubleshooting
 
@@ -284,22 +249,12 @@ bun run build
    - Verify API connectivity
    - Check authentication status
 
-## 📞 Support
-
-### Getting Help
-- GitHub Issues
-- Documentation
-- Development team contact
-- Community forums
 
 ### Security
 - Report security vulnerabilities
 - Data protection measures
 - Privacy compliance
 
-## 📝 License
-
-[Your License] - See LICENSE file for details
 
 ---
 
