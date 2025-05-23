@@ -1,152 +1,215 @@
 
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { 
-  Home, 
-  Users, 
-  FileText, 
-  Package, 
-  Bell, 
-  Settings, 
-  LogOut, 
-  Menu, 
-  X,
-  Beaker,
-  Building,
-  CalendarDays
-} from 'lucide-react';
-import { useSidebarState } from './SidebarContext';
+import React, { useState } from 'react';
+import { Bell, Search, MessageSquare, User, Settings, LogOut } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
-const Sidebar = () => {
-  const location = useLocation();
-  const { collapsed, setCollapsed, mobileOpen, setMobileOpen } = useSidebarState();
-  
-  // Mock user role - in a real app this would come from authentication
-  const userRole = 'admin'; // could be 'admin', 'doctor', 'patient', 'pharmacy'
+const TopNavbar = () => {
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
 
-  const toggleSidebar = () => {
-    setCollapsed(!collapsed);
+  // Mock notification data
+  const notifications = [
+    { id: 1, message: "New prescription received", time: "5 min ago", read: false },
+    { id: 2, message: "Reminder: Take medication", time: "1 hour ago", read: false },
+    { id: 3, message: "Dr. Johnson approved your request", time: "Yesterday", read: true },
+  ];
+
+  // Mock user data
+  const user = {
+    name: "Jane Doe",
+    role: "Admin",
+    avatar: null,
   };
 
-  const toggleMobileSidebar = () => {
-    setMobileOpen(!mobileOpen);
+  const userDetails = JSON.parse(localStorage.getItem("user") || "{}");
+
+
+  const { logout } = useAuth();
+
+  const handleViewAllNotifications = () => {
+    // Navigate to notifications page
+    setShowNotifications(false);
+    navigate('/notifications');
+    toast.success("Viewing all notifications");
   };
 
-  const navItems = {
-    admin: [
-      { name: 'Dashboard', path: '/', icon: <Home className="h-5 w-5" /> },
-      { name: 'Doctors', path: '/doctors', icon: <Users className="h-5 w-5" /> },
-      { name: 'Patients', path: '/patients', icon: <Users className="h-5 w-5" /> },
-      { name: 'Pharmacies', path: '/pharmacies', icon: <Building className="h-5 w-5" /> },
-      { name: 'Reports', path: '/reports', icon: <FileText className="h-5 w-5" /> },
-      { name: 'Settings', path: '/settings', icon: <Settings className="h-5 w-5" /> },
-    ],
-    doctor: [
-      { name: 'Dashboard', path: '/', icon: <Home className="h-5 w-5" /> },
-      { name: 'My Patients', path: '/patients', icon: <Users className="h-5 w-5" /> },
-      { name: 'Prescriptions', path: '/prescriptions', icon: <FileText className="h-5 w-5" /> },
-      { name: 'Appointments', path: '/appointments', icon: <CalendarDays className="h-5 w-5" /> },
-      { name: 'Notifications', path: '/notifications', icon: <Bell className="h-5 w-5" /> },
-      { name: 'Settings', path: '/settings', icon: <Settings className="h-5 w-5" /> },
-    ],
-    patient: [
-      { name: 'Dashboard', path: '/', icon: <Home className="h-5 w-5" /> },
-      { name: 'My Prescriptions', path: '/prescriptions', icon: <FileText className="h-5 w-5" /> },
-      { name: 'Pharmacies', path: '/pharmacies', icon: <Building className="h-5 w-5" /> },
-      { name: 'My Medicines', path: '/medicines', icon: <Beaker className="h-5 w-5" /> },
-      { name: 'Notifications', path: '/notifications', icon: <Bell className="h-5 w-5" /> },
-      { name: 'Settings', path: '/settings', icon: <Settings className="h-5 w-5" /> },
-    ],
-    pharmacy: [
-      { name: 'Dashboard', path: '/', icon: <Home className="h-5 w-5" /> },
-      { name: 'Prescriptions', path: '/prescriptions', icon: <FileText className="h-5 w-5" /> },
-      { name: 'Inventory', path: '/inventory', icon: <Package className="h-5 w-5" /> },
-      { name: 'Customers', path: '/customers', icon: <Users className="h-5 w-5" /> },
-      { name: 'Orders', path: '/orders', icon: <Package className="h-5 w-5" /> },
-      { name: 'Settings', path: '/settings', icon: <Settings className="h-5 w-5" /> },
-    ],
+  const handleProfileClick = () => {
+    setShowProfile(false);
+    navigate('/profile');
+    toast.success("Navigating to profile");
   };
 
-  const currentNavItems = navItems[userRole as keyof typeof navItems] || navItems.patient;
+  const handleSettingsClick = () => {
+    setShowProfile(false);
+    navigate('/settings');
+    toast.success("Navigating to settings");
+  };
+
+  // Stop propagation for dropdown clicks
+  const handleStopPropagation = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = () => {
+      setShowNotifications(false);
+      setShowProfile(false);
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  // Prevent dropdown from closing when clicking inside it
+  const handleDropdownClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
 
   return (
-    <>
-      {/* Mobile Menu Button */}
-      <button 
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-md"
-        onClick={toggleMobileSidebar}
-      >
-        {mobileOpen ? <X className="h-6 w-6 text-gray-700" /> : <Menu className="h-6 w-6 text-gray-700" />}
-      </button>
-
-      {/* Mobile Overlay */}
-      {mobileOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black/50 z-30"
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={cn(
-          "fixed inset-y-0 left-0 z-40 flex flex-col bg-white border-r shadow-sm transition-all duration-300 ease-in-out",
-          collapsed ? "w-20" : "w-64",
-          mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        )}
-      >
-        <div className="flex items-center justify-between h-16 px-4 border-b">
-          <Link to="/" className="flex items-center gap-2">
-            {!collapsed && (
-              <span className="text-xl font-bold text-health-primary">ePharm</span>
-            )}
-            {collapsed && (
-              <span className="text-xl font-bold text-health-primary">e</span>
-            )}
-          </Link>
-          <button 
-            onClick={toggleSidebar}
-            className="hidden lg:block p-1.5 rounded-lg bg-gray-100 hover:bg-gray-200"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+      <header className="bg-white border-b px-4 py-3 lg:py-4 flex items-center justify-between">
+        <div className="flex items-center lg:w-1/3">
+          {!isMobile && (
+              <div className="relative hidden md:block">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    className="pl-10 pr-4 py-2 rounded-full border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-health-primary/20 focus:border-health-primary w-full max-w-xs"
+                />
+              </div>
+          )}
         </div>
 
-        <div className="flex-1 overflow-y-auto py-4">
-          <nav className="px-2 space-y-1">
-            {currentNavItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
-                  location.pathname === item.path 
-                    ? "bg-health-light text-health-primary" 
-                    : "text-gray-700 hover:bg-gray-100",
-                  collapsed && "justify-center px-2"
+        <div className="flex items-center gap-2 lg:gap-4">
+          <div className="relative" onClick={handleDropdownClick}>
+            <button
+                className="p-2 rounded-full hover:bg-gray-100 relative"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowNotifications(!showNotifications);
+                  setShowProfile(false);
+                }}
+            >
+              <Bell className="h-5 w-5 text-gray-700" />
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500"></span>
+            </button>
+
+            {showNotifications && (
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg border z-50" onClick={handleStopPropagation}>
+                  <div className="p-3 border-b">
+                    <h3 className="font-medium">Notifications</h3>
+                  </div>
+                  <div className="max-h-96 overflow-y-auto">
+                    {notifications.map((notification) => (
+                        <div
+                            key={notification.id}
+                            className={`p-3 border-b hover:bg-gray-50 cursor-pointer ${
+                                !notification.read ? "bg-blue-50" : ""
+                            }`}
+                        >
+                          <p className="text-sm">{notification.message}</p>
+                          <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                        </div>
+                    ))}
+                  </div>
+                  <div className="p-2 text-center">
+                    <button
+                        className="text-sm text-health-primary hover:underline"
+                        onClick={handleViewAllNotifications}
+                    >
+                      View all notifications
+                    </button>
+                  </div>
+                </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <button
+                className="p-2 rounded-full hover:bg-gray-100"
+                aria-label="Messages"
+                onClick={() => toast.info("Messages feature coming soon")}
+            >
+              <MessageSquare className="h-5 w-5 text-gray-700" />
+            </button>
+          </div>
+
+          <div className="relative" onClick={handleDropdownClick}>
+            <button
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowProfile(!showProfile);
+                  setShowNotifications(false);
+                }}
+            >
+              <div className="w-8 h-8 bg-health-primary text-white rounded-full flex items-center justify-center">
+                {user.avatar ? (
+                    <img
+                        src={user.avatar}
+                        alt={user.name}
+                        className="w-full h-full rounded-full object-cover"
+                    />
+                ) : (
+                    <User className="h-5 w-5" />
                 )}
-              >
-                {item.icon}
-                {!collapsed && <span>{item.name}</span>}
-              </Link>
-            ))}
-          </nav>
-        </div>
+              </div>
+              {!isMobile && (
+                  <div className="hidden md:block text-left">
+                    <p className="text-sm font-medium line-clamp-1">{userDetails?.name ??user.name}</p>
+                    <p className="text-xs text-gray-500">{userDetails?.role ??user.role}</p>
+                  </div>
+              )}
+            </button>
 
-        <div className="p-4 border-t">
-          <button className={cn(
-            "flex items-center gap-3 w-full px-3 py-2 text-gray-700 rounded-md hover:bg-gray-100 transition-colors",
-            collapsed && "justify-center px-2"
-          )}>
-            <LogOut className="h-5 w-5" />
-            {!collapsed && <span>Logout</span>}
-          </button>
+            {showProfile && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border z-50" onClick={handleStopPropagation}>
+                  <div className="p-3 border-b">
+                    <p className="font-medium">{userDetails?.name ??user.name}</p>
+                    <p className="text-sm text-gray-500">{userDetails?.role ??user.role}</p>
+                  </div>
+                  <div className="p-2">
+                    <button
+                        className="block w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100"
+                        onClick={handleProfileClick}
+                    >
+                      <div className="flex items-center gap-2">
+                        <User className="h-4 w-4" />
+                        <span>Profile</span>
+                      </div>
+                    </button>
+                    <button
+                        className="block w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100"
+                        onClick={handleSettingsClick}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Settings className="h-4 w-4" />
+                        <span>Settings</span>
+                      </div>
+                    </button>
+                    <button
+                        className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 flex items-center gap-2"
+                        onClick={logout}
+                    >
+                      <LogOut className="h-4 w-4" />
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                </div>
+            )}
+          </div>
         </div>
-      </aside>
-    </>
+      </header>
   );
 };
 
-export default Sidebar;
+export default TopNavbar;
