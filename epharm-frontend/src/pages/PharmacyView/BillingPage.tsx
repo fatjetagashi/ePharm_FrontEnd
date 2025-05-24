@@ -239,9 +239,13 @@ const BillingPage = () => {
               <TabsTrigger value="bills">Bills</TabsTrigger>
             </TabsList>
 
-    
+            <TabsContent value="sales" className="mt-6">
+              {/* <SalesList sales={filteredSales} /> */}
+            </TabsContent>
 
-      
+            <TabsContent value="bills" className="mt-6">
+              {/* <BillsList bills={filteredBills} /> */}
+            </TabsContent>
           </Tabs>
         </div>
       </DashboardLayout>
@@ -266,4 +270,3 @@ const Card = ({ title, value, icon }: { title: string; value: string; icon: Reac
 };
 
 export default BillingPage;
-

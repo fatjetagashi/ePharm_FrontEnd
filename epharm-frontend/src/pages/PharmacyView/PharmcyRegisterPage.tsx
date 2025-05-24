@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import axiosInstance from "@/lib/axios";
 import { useAuth } from "@/context/AuthContext"; // ✅ Use AuthContext
 
-export default function PharmacyRegisterPage() {
+export default function PharmcyRegisterPage() {
     const { setRole } = useAuth(); // ✅ Get setRole from context
     const navigate = useNavigate();
 

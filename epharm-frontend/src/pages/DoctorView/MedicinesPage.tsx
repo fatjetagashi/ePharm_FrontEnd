@@ -123,7 +123,7 @@ const MedicinesPage = () => {
                     </div>
                 )}
             </div>
-        </DashboardLayout>
+         </DashboardLayout>
     );
 };
 

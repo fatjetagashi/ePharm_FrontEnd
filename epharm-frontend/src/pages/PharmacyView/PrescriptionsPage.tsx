@@ -359,10 +359,10 @@ const PrescriptionsPage = () => {
           </TabsContent>
 
           <TabsContent value="all" className="mt-6">
-            {/* <PrescriptionList
+            <PrescriptionList
               prescriptions={filteredPrescriptions}
               onStatusChange={handleStatusChange}
-            /> */}
+            />
           </TabsContent>
         </Tabs>
       </div>

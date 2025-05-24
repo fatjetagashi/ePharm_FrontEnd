@@ -17,38 +17,38 @@ const Index = () => {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   return (
-      <DashboardLayout>
-        <div className="space-y-6">
-          <Card className="p-6">
-            <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
-              <Avatar className="w-24 h-24 bg-health-primary text-white rounded-full">
-                <AvatarFallback className="text-3xl">
-                  <User className="h-12 w-12" />
-                </AvatarFallback>
-              </Avatar>
+    <DashboardLayout>
+      <div className="space-y-6">
+        <Card className="p-6">
+          <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+            <Avatar className="w-24 h-24 bg-health-primary text-white rounded-full">
+              <AvatarFallback className="text-3xl">
+                <User className="h-12 w-12" />
+              </AvatarFallback>
+            </Avatar>
 
-              <div className="space-y-2 text-center md:text-left">
-                <h1 className="text-2xl font-bold">
-                  {user?.name ?? patientInfo.name}
-                </h1>
-                <div>
-                  <p className="text-gray-500">
-                    Patient ID: {user?.id ?? patientInfo.patientId}
-                  </p>
-                  <p className="text-gray-500">
-                    {user?.email ?? patientInfo.email}
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <PatientQRDialog patientInfo={patientInfo} />
-                </div>
+            <div className="space-y-2 text-center md:text-left">
+              <h1 className="text-2xl font-bold">
+                {user?.name ?? patientInfo.name}
+              </h1>
+              <div>
+                <p className="text-gray-500">
+                  Patient ID: {user?.id ?? patientInfo.patientId}
+                </p>
+                <p className="text-gray-500">
+                  {user?.email ?? patientInfo.email}
+                </p>
+              </div>
+              <div className="pt-2">
+                <PatientQRDialog patientInfo={patientInfo} />
               </div>
             </div>
-          </Card>
+          </div>
+        </Card>
 
-          <PatientDashboard />
-        </div>
-      </DashboardLayout>
+        <PatientDashboard />
+      </div>
+    </DashboardLayout>
   );
 };
 
