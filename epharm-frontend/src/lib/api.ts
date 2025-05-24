@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create Axios instance
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api', // Replace with your real backend URL
+    baseURL: 'http://localhost:8000/api',
     withCredentials: true, // If using cookies for auth
     headers: {
         'Content-Type': 'application/json',
@@ -10,9 +10,9 @@ const api = axios.create({
     },
 });
 
-// Optional: Add a request interceptor to attach token
+
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token'); // or use auth context
+    const token = localStorage.getItem('token'); 
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
